@@ -20,6 +20,7 @@ def lol(a):
         return None
     return str
 
+# gathering information of a product by going to product page using asin
 def amaz2(url):
 
 
@@ -55,6 +56,8 @@ def amaz2(url):
     return data
 
 ANSI=[]
+
+#gathering the asin number of all products in a page and traversing through pages
 def amaz1(url,j):
 
     page = requests.get(url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.149 Safari/537.36'})
@@ -71,6 +74,8 @@ def amaz1(url,j):
     return [url,j]
 
 products=[]
+
+#gathering the information of all products in a page and traversing through the pages
 def amaz3(url,j):
 
     print("page under processing",url)
@@ -125,7 +130,10 @@ def amaz3(url,j):
 
 url1="https://www.amazon.in/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=phone"
 
+
+
 """
+----for loop for amaz1 function
 for i in range(1):
     if i==0:
         j=int(0)
@@ -136,8 +144,8 @@ for i in range(1):
     print(url,j,)
     url,j = amaz1(url,j)
 
-print(len(ANSI))
 
+-- for loop for amaz2 function
 extracted_data=[]
 for i in ANSI:
     print(i)
@@ -145,13 +153,9 @@ for i in ANSI:
     print('processing -',url)
     extracted_data.append(amaz2(url))
     sleep(15)
-
-
-f=open('data.json','w')
-json.dump(extracted_data,f)
-
 """
 
+# fro loop for amaz3 function
 for i in range(6):
     print("page-",i, "processing")
     if i==0:
@@ -164,8 +168,6 @@ for i in range(6):
     url,j = amaz3(url,j)
 
 print(len(products))
-#f=open('data.json','w')
-#json.dump(products,f)
 
 with open("data.json", "w") as json_file:
     json.dump(products, json_file, indent=4)
