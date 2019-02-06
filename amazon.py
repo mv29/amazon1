@@ -2,6 +2,7 @@ import json
 from time import sleep
 from  lxml import html
 import requests
+import random
 import csv
 
 def lol(a):
@@ -218,8 +219,9 @@ def amaz5(url,rating):
         else:
             raw_title.append(None)
 
-        xpath_author = "//div[@id=\"cm_cr-review_list\"]/div[" + str(i) + "]//div[@class=\"a-row\"]//a[@data-hook=\"review-author\"]/text()"
+        xpath_author = "//div[@id=\"cm_cr-review_list\"]/div[" + str(i) + "]//div[@class=\"a-profile-content\"]//span[@class=\"a-profile-name\"]/text()"
         raw_author = doc.xpath(xpath_author)
+        #print("author ", raw_author," " ,str(i))
         if len(raw_author) != 0:
             print(raw_author[0])
         else:
@@ -262,7 +264,7 @@ def mv3():
         if i == 0:
             j = int(0)
             lol1 = amaz1(url1, j)
-            sleep(10)
+            sleep(random.randint(7, 15) % 20)
             url = lol1[0]
             j = lol1[1]
         print(url, j, )
@@ -284,10 +286,7 @@ def mv4():
         url = 'https://www.amazon.in/dp/' + i[0]
         print('processing -', url)
         extracted_data.append(amaz2(url))
-        sleep(15)
-
-
-
+        sleep(random.randint(7, 15) % 20)
 
 
 
@@ -300,7 +299,7 @@ def mv1():
         if i == 0:
             j = int(0)
             lol1 = amaz3(url1, j)
-            sleep(10)
+            sleep(random.randint(7, 15) % 20)
             url = lol1[0]
             j = lol1[1]
             continue
@@ -332,9 +331,10 @@ def mv2(url):
         current_page="https://www.amazon.in"+lol[i]
         for j in range(10):
             next_page = amaz5(current_page, 5 - i)
-            sleep(10)
+            sleep(random.randint(7,15)%20)
             current_page = "https://www.amazon.in" + next_page[0]
             print(current_page)
+
 
     print(len(COMMENTS))
     for i in range(len(COMMENTS)):
@@ -355,7 +355,6 @@ def mv2(url):
             mv.append(row.helpful)
             writer.writerow(mv)
             mv.clear()
-
 
 
 mv2('https://www.amazon.in/dp/B077PWBC6V')
